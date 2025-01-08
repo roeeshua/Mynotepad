@@ -1,0 +1,20 @@
+cout<<"请输入三角形的三边长度：";
+A cin >> a >> b >> c;
+B if (a < 1 || b < 1 || c < 1 || a > 200 || b > 200 || c > 200) 
+C    cout << "输入的边长必须在1到200之间！" << endl;
+D else if (!isTriangle(a, b, c))
+E          cout << "非三角形" << endl;
+F        else if (a == b && b == c) 
+G                  cout << "等边三角形" << endl;
+H               elif (a == b || b == c || a == c) {
+I                  if (isRightTriangle(a, b, c)) 
+J                    cout << "等腰直角三角形" << endl
+K                  else cout << "等腰非直角三角形" << endl;
+L                  EndIf
+M               else if (isRightTriangle(a, b, c)) 
+N                         cout << "不等边直角三角形" << endl;
+O                      else cout << "不等边非直角三角形" << endl;
+P                      EndIf
+Q               EndIf
+R        EndIf
+S EndIf

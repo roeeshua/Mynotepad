@@ -1,0 +1,21 @@
+开始printf("请输入A,B,C的值:\n");
+S scanf s("%f%f%f", &a, &b, &c);
+T x=b*b-4*a*c;
+A if(a>200|a<-200|b>200|b<-200|c>200|c< -200)//范围判断
+B    printf("输入越界!\n");
+C else if (a == 0)//二次项为0时为一元一次方程
+D         if (b == 0)
+E           if (c == 0)
+F             printf("方程式有无数个根!\n");
+G          else printf("方程式无根!\n");
+H          EndIf
+I           else printf("方程式有一个实根!\n");
+J           EndIf
+K            else if (x >0)
+L                      printf("方程式有两个不相等实根!\n");
+M                  elif (x == 0) printf("方程式有两个相等实根!\n");
+N                   else printf("方程式有两个虚根!\n");
+O                   Endlf
+P            Endlf
+QEndlf
+R//结束
