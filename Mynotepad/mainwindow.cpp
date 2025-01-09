@@ -12,6 +12,8 @@
 #include <QFile>
 #include <QDesktopServices>
 #include <QUrl>
+#include <QInputDialog>
+#include "bookmarkdialog.h"
 
 MainWindow::MainWindow(QWidget *parent)
     : QMainWindow(parent)
@@ -76,6 +78,67 @@ MainWindow::~MainWindow()
     delete ui;
 }
 
+void MainWindow::on_actionAddBookmark_triggered()
+{
+    CodeEditor *editor = currentEditor();
+    if (editor) {
+        bool ok;
+        QString name = QInputDialog::getText(this, "添加书签", "书签名称:", QLineEdit::Normal, "", &ok);
+        if (ok && !name.isEmpty()) {
+            int lineNumber = editor->textCursor().blockNumber();
+            editor->addBookmark(name, lineNumber);
+            QMessageBox::information(this, "书签", "书签添加成功！");
+        }
+    }
+}
+
+void MainWindow::on_actionRemoveBookmark_triggered()
+{
+    CodeEditor *editor = currentEditor();
+    if (editor) {
+        bool ok;
+        QString name = QInputDialog::getText(this, "删除书签", "书签名称:", QLineEdit::Normal, "", &ok);
+        if (ok && !name.isEmpty()) {
+            editor->removeBookmark(name);
+            QMessageBox::information(this, "书签", "书签删除成功！");
+        }
+    }
+}
+
+void MainWindow::on_actionGotoBookmark_triggered()
+{
+    CodeEditor *editor = currentEditor();
+    if (editor) {
+        QMap<QString, int> bookmarks = editor->getBookmarks();
+        if (!bookmarks.isEmpty()) {
+            BookmarkDialog dialog(bookmarks, this);
+            if (dialog.exec() == QDialog::Accepted) {
+                int lineNumber = dialog.selectedLineNumber();
+                QTextCursor cursor = editor->textCursor();
+                cursor.movePosition(QTextCursor::Start);
+                cursor.movePosition(QTextCursor::Down, QTextCursor::MoveAnchor, lineNumber);
+                editor->setTextCursor(cursor);
+                QMessageBox::information(this, "书签", "已跳转到书签位置！");
+            }
+        } else {
+            QMessageBox::information(this, "书签", "没有书签可用。");
+        }
+    }
+}
+
+void MainWindow::on_actionViewBookmarks_triggered()
+{
+    CodeEditor *editor = currentEditor();
+    if (editor) {
+        QMap<QString, int> bookmarks = editor->getBookmarks();
+        QString list;
+        for (auto it = bookmarks.begin(); it != bookmarks.end(); ++it) {
+            list += QString("%1: 第 %2 行\n").arg(it.key()).arg(it.value() + 1);
+        }
+        QMessageBox::information(this, "书签列表", list.isEmpty() ? "没有书签" : list);
+    }
+}
+
 void MainWindow::on_hyperlinkActivated(const QUrl &url)
 {
     qDebug() << "Hyperlink activated:" << url.toString();
@@ -128,7 +191,10 @@ void MainWindow::updateEditorActions()
 void MainWindow::on_TextChanged()
 {
     // 根据当前的编辑器更新窗口标题，添加“修改中”标识
-    setWindowTitle("*修改中 - " + windowTitle());
+    QString currentTitle = windowTitle();
+    if (!currentTitle.startsWith("*修改中 -")) {
+        setWindowTitle("*修改中 - " + currentTitle);
+    }
     textchanged = true;
 }
 

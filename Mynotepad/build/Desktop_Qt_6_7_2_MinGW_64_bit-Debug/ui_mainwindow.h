@@ -48,6 +48,10 @@ public:
     QAction *actionEditorBackground;
     QAction *actionFontBackground;
     QAction *actionToggleTheme;
+    QAction *actionAddBookmark;
+    QAction *actionRemoveBookmark;
+    QAction *actionViewBookmarks;
+    QAction *actionGotoBookmark;
     QWidget *centralwidget;
     QTabWidget *tabWidget;
     QMenuBar *menubar;
@@ -56,6 +60,7 @@ public:
     QMenu *menu_O;
     QMenu *menu_V;
     QMenu *menu_H;
+    QMenu *menuBookmarks;
     QToolBar *toolBar;
     QStatusBar *statusBar;
 
@@ -202,6 +207,18 @@ public:
         QIcon icon19(QIcon::fromTheme(QIcon::ThemeIcon::MediaRecord));
         actionToggleTheme->setIcon(icon19);
         actionToggleTheme->setMenuRole(QAction::MenuRole::NoRole);
+        actionAddBookmark = new QAction(MainWindow);
+        actionAddBookmark->setObjectName("actionAddBookmark");
+        actionAddBookmark->setMenuRole(QAction::MenuRole::NoRole);
+        actionRemoveBookmark = new QAction(MainWindow);
+        actionRemoveBookmark->setObjectName("actionRemoveBookmark");
+        actionRemoveBookmark->setMenuRole(QAction::MenuRole::NoRole);
+        actionViewBookmarks = new QAction(MainWindow);
+        actionViewBookmarks->setObjectName("actionViewBookmarks");
+        actionViewBookmarks->setMenuRole(QAction::MenuRole::NoRole);
+        actionGotoBookmark = new QAction(MainWindow);
+        actionGotoBookmark->setObjectName("actionGotoBookmark");
+        actionGotoBookmark->setMenuRole(QAction::MenuRole::NoRole);
         centralwidget = new QWidget(MainWindow);
         centralwidget->setObjectName("centralwidget");
         tabWidget = new QTabWidget(centralwidget);
@@ -221,6 +238,8 @@ public:
         menu_V->setObjectName("menu_V");
         menu_H = new QMenu(menubar);
         menu_H->setObjectName("menu_H");
+        menuBookmarks = new QMenu(menubar);
+        menuBookmarks->setObjectName("menuBookmarks");
         MainWindow->setMenuBar(menubar);
         toolBar = new QToolBar(MainWindow);
         toolBar->setObjectName("toolBar");
@@ -235,6 +254,7 @@ public:
         menubar->addAction(menu_O->menuAction());
         menubar->addAction(menu_V->menuAction());
         menubar->addAction(menu_H->menuAction());
+        menubar->addAction(menuBookmarks->menuAction());
         menu_F->addAction(actionNew);
         menu_F->addAction(actionOpen);
         menu_F->addAction(actionSave);
@@ -258,6 +278,10 @@ public:
         menu_V->addAction(actionFind);
         menu_V->addAction(actionReplace);
         menu_H->addAction(actionAbout);
+        menuBookmarks->addAction(actionAddBookmark);
+        menuBookmarks->addAction(actionRemoveBookmark);
+        menuBookmarks->addAction(actionViewBookmarks);
+        menuBookmarks->addAction(actionGotoBookmark);
         toolBar->addAction(actionNew);
         toolBar->addAction(actionOpen);
         toolBar->addAction(actionSave);
@@ -416,11 +440,19 @@ public:
 #if QT_CONFIG(tooltip)
         actionToggleTheme->setToolTip(QCoreApplication::translate("MainWindow", "\345\210\207\346\215\242\344\270\272\346\267\261/\346\265\205\350\211\262\346\250\241\345\274\217", nullptr));
 #endif // QT_CONFIG(tooltip)
+        actionAddBookmark->setText(QCoreApplication::translate("MainWindow", "\346\267\273\345\212\240\344\271\246\347\255\276", nullptr));
+        actionRemoveBookmark->setText(QCoreApplication::translate("MainWindow", "\347\247\273\351\231\244\344\271\246\347\255\276", nullptr));
+        actionViewBookmarks->setText(QCoreApplication::translate("MainWindow", "\346\237\245\347\234\213\344\271\246\347\255\276", nullptr));
+        actionGotoBookmark->setText(QCoreApplication::translate("MainWindow", "\350\267\263\350\275\254\344\271\246\347\255\276", nullptr));
+#if QT_CONFIG(tooltip)
+        actionGotoBookmark->setToolTip(QCoreApplication::translate("MainWindow", "\350\267\263\350\275\254\345\210\260\346\214\207\345\256\232\344\271\246\347\255\276", nullptr));
+#endif // QT_CONFIG(tooltip)
         menu_F->setTitle(QCoreApplication::translate("MainWindow", "\346\226\207\344\273\266(&F)", nullptr));
         menu_E->setTitle(QCoreApplication::translate("MainWindow", "\347\274\226\350\276\221(&E)", nullptr));
         menu_O->setTitle(QCoreApplication::translate("MainWindow", "\346\240\274\345\274\217(&O)", nullptr));
         menu_V->setTitle(QCoreApplication::translate("MainWindow", "\346\237\245\347\234\213(&V)", nullptr));
         menu_H->setTitle(QCoreApplication::translate("MainWindow", "\345\270\256\345\212\251(&H)", nullptr));
+        menuBookmarks->setTitle(QCoreApplication::translate("MainWindow", "\344\271\246\347\255\276(&B)", nullptr));
         toolBar->setWindowTitle(QCoreApplication::translate("MainWindow", "toolBar", nullptr));
     } // retranslateUi
 

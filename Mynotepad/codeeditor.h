@@ -7,6 +7,7 @@
 #include <QTextCursor>
 #include <QTextBlock>
 #include "hyperlinkhighlighter.h"
+#include <QMap>
 
 class CodeEditor : public QPlainTextEdit
 {
@@ -17,6 +18,11 @@ public:
 
     void lineNumberAreaPaintEvent(QPaintEvent *event);
     int lineNumberAreaWidth();
+
+    void addBookmark(const QString &name, int lineNumber);
+    void removeBookmark(const QString &name);
+    int getBookmarkLineNumber(const QString &name);
+    QMap<QString, int> getBookmarks();
 
 protected:
     void resizeEvent(QResizeEvent *event) override;
@@ -34,6 +40,8 @@ private:
     QWidget *lineNumberArea;
     QSyntaxHighlighter *highlighter; // 添加语法高亮器
     HyperlinkHighlighter *hyperlinkHighlighter; // 添加超链接高亮器
+
+    QMap<QString, int> bookmarks; // 书签管理器
 
 signals:
     void hyperlinkActivated(const QUrl &url); // 添加信号声明

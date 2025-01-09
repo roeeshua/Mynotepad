@@ -6,6 +6,7 @@
 #include<QPainter>
 #include<QTextBlock>
 
+
     CodeEditor::CodeEditor(QWidget *parent,const QString &fileType) : QPlainTextEdit(parent)
     {
         lineNumberArea = new LineNumberArea(this);
@@ -33,6 +34,26 @@
 
         updateLineNumberAreaWidth(0);
         highlightCurrentLine();
+    }
+
+    void CodeEditor::addBookmark(const QString &name, int lineNumber)
+    {
+        bookmarks[name] = lineNumber;
+    }
+
+    void CodeEditor::removeBookmark(const QString &name)
+    {
+        bookmarks.remove(name);
+    }
+
+    int CodeEditor::getBookmarkLineNumber(const QString &name)
+    {
+        return bookmarks.value(name, -1); // 如果书签不存在，返回 -1
+    }
+
+    QMap<QString, int> CodeEditor::getBookmarks()
+    {
+        return bookmarks;
     }
 
     void CodeEditor::mousePressEvent(QMouseEvent *event)

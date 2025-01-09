@@ -85,11 +85,21 @@
     </property>
     <addaction name="actionAbout"/>
    </widget>
+   <widget class="QMenu" name="menuBookmarks">
+    <property name="title">
+     <string>书签(&amp;B)</string>
+    </property>
+    <addaction name="actionAddBookmark"/>
+    <addaction name="actionRemoveBookmark"/>
+    <addaction name="actionViewBookmarks"/>
+    <addaction name="actionGotoBookmark"/>
+   </widget>
    <addaction name="menu_F"/>
    <addaction name="menu_E"/>
    <addaction name="menu_O"/>
    <addaction name="menu_V"/>
    <addaction name="menu_H"/>
+   <addaction name="menuBookmarks"/>
   </widget>
   <widget class="QToolBar" name="toolBar">
    <property name="windowTitle">
@@ -481,6 +491,41 @@
    </property>
    <property name="toolTip">
     <string>切换为深/浅色模式</string>
+   </property>
+   <property name="menuRole">
+    <enum>QAction::MenuRole::NoRole</enum>
+   </property>
+  </action>
+  <action name="actionAddBookmark">
+   <property name="text">
+    <string>添加书签</string>
+   </property>
+   <property name="menuRole">
+    <enum>QAction::MenuRole::NoRole</enum>
+   </property>
+  </action>
+  <action name="actionRemoveBookmark">
+   <property name="text">
+    <string>移除书签</string>
+   </property>
+   <property name="menuRole">
+    <enum>QAction::MenuRole::NoRole</enum>
+   </property>
+  </action>
+  <action name="actionViewBookmarks">
+   <property name="text">
+    <string>查看书签</string>
+   </property>
+   <property name="menuRole">
+    <enum>QAction::MenuRole::NoRole</enum>
+   </property>
+  </action>
+  <action name="actionGotoBookmark">
+   <property name="text">
+    <string>跳转书签</string>
+   </property>
+   <property name="toolTip">
+    <string>跳转到指定书签</string>
    </property>
    <property name="menuRole">
     <enum>QAction::MenuRole::NoRole</enum>

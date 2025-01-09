@@ -74,6 +74,11 @@ private slots:
 
     void updatePasteAction();
 
+    void on_actionAddBookmark_triggered();
+    void on_actionRemoveBookmark_triggered();
+    void on_actionViewBookmarks_triggered();
+    void on_actionGotoBookmark_triggered();
+
 private:
     Ui::MainWindow *ui;
     QTabWidget *tabWidget; // 多标签页容器

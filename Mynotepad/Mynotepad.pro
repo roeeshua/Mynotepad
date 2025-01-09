@@ -12,6 +12,7 @@ SOURCES += \
     HTMLHighlighter.cpp \
     JavaScriptHighlighter.cpp \
     aboutdialog.cpp \
+    bookmarkdialog.cpp \
     codeeditor.cpp \
     cxxhighlighter.cpp \
     hyperlinkhighlighter.cpp \
@@ -25,6 +26,7 @@ HEADERS += \
     HTMLHighlighter.h \
     JavaScriptHighlighter.h \
     aboutdialog.h \
+    bookmarkdialog.h \
     codeeditor.h \
     cxxhighlighter.h \
     hyperlinkhighlighter.h \
