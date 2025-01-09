@@ -74,7 +74,9 @@ constexpr auto qt_meta_stringdata_CLASSMainWindowENDCLASS = QtMocHelpers::string
     "on_actionAddFavorite_triggered",
     "on_actionRemoveFavorite_triggered",
     "on_actionOpenFavorite_triggered",
-    "on_actionViewFavorites_triggered"
+    "on_actionViewFavorites_triggered",
+    "on_actionClearHistory_triggered",
+    "on_recentFileAction_triggered"
 );
 #else  // !QT_MOC_HAS_STRINGDATA
 #error "qtmochelpers.h not found or too old."
@@ -87,7 +89,7 @@ Q_CONSTINIT static const uint qt_meta_data_CLASSMainWindowENDCLASS[] = {
       12,       // revision
        0,       // classname
        0,    0, // classinfo
-      34,   14, // methods
+      36,   14, // methods
        0,    0, // properties
        0,    0, // enums/sets
        0,    0, // constructors
@@ -95,40 +97,42 @@ Q_CONSTINIT static const uint qt_meta_data_CLASSMainWindowENDCLASS[] = {
        0,       // signalCount
 
  // slots: name, argc, parameters, tag, flags, initial metatype offsets
-       1,    1,  218,    2, 0x08,    1 /* Private */,
-       4,    0,  221,    2, 0x08,    3 /* Private */,
-       5,    0,  222,    2, 0x08,    4 /* Private */,
-       6,    0,  223,    2, 0x08,    5 /* Private */,
-       7,    0,  224,    2, 0x08,    6 /* Private */,
-       8,    0,  225,    2, 0x08,    7 /* Private */,
-       9,    0,  226,    2, 0x08,    8 /* Private */,
-      10,    0,  227,    2, 0x08,    9 /* Private */,
-      11,    0,  228,    2, 0x08,   10 /* Private */,
-      12,    0,  229,    2, 0x08,   11 /* Private */,
-      13,    0,  230,    2, 0x08,   12 /* Private */,
-      14,    0,  231,    2, 0x08,   13 /* Private */,
-      15,    0,  232,    2, 0x08,   14 /* Private */,
-      16,    0,  233,    2, 0x08,   15 /* Private */,
-      17,    0,  234,    2, 0x08,   16 /* Private */,
-      18,    0,  235,    2, 0x08,   17 /* Private */,
-      19,    0,  236,    2, 0x08,   18 /* Private */,
-      20,    0,  237,    2, 0x08,   19 /* Private */,
-      21,    0,  238,    2, 0x08,   20 /* Private */,
-      22,    0,  239,    2, 0x08,   21 /* Private */,
-      23,    0,  240,    2, 0x08,   22 /* Private */,
-      24,    0,  241,    2, 0x08,   23 /* Private */,
-      25,    1,  242,    2, 0x08,   24 /* Private */,
-      27,    1,  245,    2, 0x08,   26 /* Private */,
-      29,    0,  248,    2, 0x08,   28 /* Private */,
-      30,    0,  249,    2, 0x08,   29 /* Private */,
-      31,    0,  250,    2, 0x08,   30 /* Private */,
-      32,    0,  251,    2, 0x08,   31 /* Private */,
-      33,    0,  252,    2, 0x08,   32 /* Private */,
-      34,    0,  253,    2, 0x08,   33 /* Private */,
-      35,    0,  254,    2, 0x08,   34 /* Private */,
-      36,    0,  255,    2, 0x08,   35 /* Private */,
-      37,    0,  256,    2, 0x08,   36 /* Private */,
-      38,    0,  257,    2, 0x08,   37 /* Private */,
+       1,    1,  230,    2, 0x08,    1 /* Private */,
+       4,    0,  233,    2, 0x08,    3 /* Private */,
+       5,    0,  234,    2, 0x08,    4 /* Private */,
+       6,    0,  235,    2, 0x08,    5 /* Private */,
+       7,    0,  236,    2, 0x08,    6 /* Private */,
+       8,    0,  237,    2, 0x08,    7 /* Private */,
+       9,    0,  238,    2, 0x08,    8 /* Private */,
+      10,    0,  239,    2, 0x08,    9 /* Private */,
+      11,    0,  240,    2, 0x08,   10 /* Private */,
+      12,    0,  241,    2, 0x08,   11 /* Private */,
+      13,    0,  242,    2, 0x08,   12 /* Private */,
+      14,    0,  243,    2, 0x08,   13 /* Private */,
+      15,    0,  244,    2, 0x08,   14 /* Private */,
+      16,    0,  245,    2, 0x08,   15 /* Private */,
+      17,    0,  246,    2, 0x08,   16 /* Private */,
+      18,    0,  247,    2, 0x08,   17 /* Private */,
+      19,    0,  248,    2, 0x08,   18 /* Private */,
+      20,    0,  249,    2, 0x08,   19 /* Private */,
+      21,    0,  250,    2, 0x08,   20 /* Private */,
+      22,    0,  251,    2, 0x08,   21 /* Private */,
+      23,    0,  252,    2, 0x08,   22 /* Private */,
+      24,    0,  253,    2, 0x08,   23 /* Private */,
+      25,    1,  254,    2, 0x08,   24 /* Private */,
+      27,    1,  257,    2, 0x08,   26 /* Private */,
+      29,    0,  260,    2, 0x08,   28 /* Private */,
+      30,    0,  261,    2, 0x08,   29 /* Private */,
+      31,    0,  262,    2, 0x08,   30 /* Private */,
+      32,    0,  263,    2, 0x08,   31 /* Private */,
+      33,    0,  264,    2, 0x08,   32 /* Private */,
+      34,    0,  265,    2, 0x08,   33 /* Private */,
+      35,    0,  266,    2, 0x08,   34 /* Private */,
+      36,    0,  267,    2, 0x08,   35 /* Private */,
+      37,    0,  268,    2, 0x08,   36 /* Private */,
+      38,    0,  269,    2, 0x08,   37 /* Private */,
+      39,    0,  270,    2, 0x08,   38 /* Private */,
+      40,    0,  271,    2, 0x08,   39 /* Private */,
 
  // slots: parameters
     QMetaType::Void, QMetaType::QUrl,    3,
@@ -155,6 +159,8 @@ Q_CONSTINIT static const uint qt_meta_data_CLASSMainWindowENDCLASS[] = {
     QMetaType::Void,
     QMetaType::Void, QMetaType::Bool,   26,
     QMetaType::Void, QMetaType::Int,   28,
+    QMetaType::Void,
+    QMetaType::Void,
     QMetaType::Void,
     QMetaType::Void,
     QMetaType::Void,
@@ -248,6 +254,10 @@ Q_CONSTINIT const QMetaObject MainWindow::staticMetaObject = { {
         // method 'on_actionOpenFavorite_triggered'
         QtPrivate::TypeAndForceComplete<void, std::false_type>,
         // method 'on_actionViewFavorites_triggered'
+        QtPrivate::TypeAndForceComplete<void, std::false_type>,
+        // method 'on_actionClearHistory_triggered'
+        QtPrivate::TypeAndForceComplete<void, std::false_type>,
+        // method 'on_recentFileAction_triggered'
         QtPrivate::TypeAndForceComplete<void, std::false_type>
     >,
     nullptr
@@ -293,6 +303,8 @@ void MainWindow::qt_static_metacall(QObject *_o, QMetaObject::Call _c, int _id, 
         case 31: _t->on_actionRemoveFavorite_triggered(); break;
         case 32: _t->on_actionOpenFavorite_triggered(); break;
         case 33: _t->on_actionViewFavorites_triggered(); break;
+        case 34: _t->on_actionClearHistory_triggered(); break;
+        case 35: _t->on_recentFileAction_triggered(); break;
         default: ;
         }
     }
@@ -317,13 +329,13 @@ int MainWindow::qt_metacall(QMetaObject::Call _c, int _id, void **_a)
     if (_id < 0)
         return _id;
     if (_c == QMetaObject::InvokeMetaMethod) {
-        if (_id < 34)
+        if (_id < 36)
             qt_static_metacall(this, _c, _id, _a);
-        _id -= 34;
+        _id -= 36;
     } else if (_c == QMetaObject::RegisterMethodArgumentMetaType) {
-        if (_id < 34)
+        if (_id < 36)
             *reinterpret_cast<QMetaType *>(_a[0]) = QMetaType();
-        _id -= 34;
+        _id -= 36;
     }
     return _id;
 }

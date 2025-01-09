@@ -56,6 +56,8 @@ public:
     QAction *actionRemoveFavorite;
     QAction *actionOpenFavorite;
     QAction *actionViewFavorites;
+    QAction *recentFileAction;
+    QAction *actionClearHistory;
     QWidget *centralwidget;
     QTabWidget *tabWidget;
     QMenuBar *menubar;
@@ -66,6 +68,7 @@ public:
     QMenu *menu_H;
     QMenu *menuBookmarks;
     QMenu *menu_p;
+    QMenu *menu_l;
     QToolBar *toolBar;
     QStatusBar *statusBar;
 
@@ -236,6 +239,12 @@ public:
         actionViewFavorites = new QAction(MainWindow);
         actionViewFavorites->setObjectName("actionViewFavorites");
         actionViewFavorites->setMenuRole(QAction::MenuRole::NoRole);
+        recentFileAction = new QAction(MainWindow);
+        recentFileAction->setObjectName("recentFileAction");
+        recentFileAction->setMenuRole(QAction::MenuRole::NoRole);
+        actionClearHistory = new QAction(MainWindow);
+        actionClearHistory->setObjectName("actionClearHistory");
+        actionClearHistory->setMenuRole(QAction::MenuRole::NoRole);
         centralwidget = new QWidget(MainWindow);
         centralwidget->setObjectName("centralwidget");
         tabWidget = new QTabWidget(centralwidget);
@@ -259,6 +268,8 @@ public:
         menuBookmarks->setObjectName("menuBookmarks");
         menu_p = new QMenu(menubar);
         menu_p->setObjectName("menu_p");
+        menu_l = new QMenu(menubar);
+        menu_l->setObjectName("menu_l");
         MainWindow->setMenuBar(menubar);
         toolBar = new QToolBar(MainWindow);
         toolBar->setObjectName("toolBar");
@@ -275,6 +286,7 @@ public:
         menubar->addAction(menu_H->menuAction());
         menubar->addAction(menuBookmarks->menuAction());
         menubar->addAction(menu_p->menuAction());
+        menubar->addAction(menu_l->menuAction());
         menu_F->addAction(actionNew);
         menu_F->addAction(actionOpen);
         menu_F->addAction(actionSave);
@@ -306,6 +318,7 @@ public:
         menu_p->addAction(actionRemoveFavorite);
         menu_p->addAction(actionOpenFavorite);
         menu_p->addAction(actionViewFavorites);
+        menu_l->addAction(actionClearHistory);
         toolBar->addAction(actionNew);
         toolBar->addAction(actionOpen);
         toolBar->addAction(actionSave);
@@ -487,6 +500,14 @@ public:
 #if QT_CONFIG(tooltip)
         actionViewFavorites->setToolTip(QCoreApplication::translate("MainWindow", "\346\237\245\347\234\213\346\224\266\350\227\217", nullptr));
 #endif // QT_CONFIG(tooltip)
+        recentFileAction->setText(QCoreApplication::translate("MainWindow", "\346\211\223\345\274\200\346\234\200\350\277\221\346\226\207\344\273\266", nullptr));
+#if QT_CONFIG(tooltip)
+        recentFileAction->setToolTip(QCoreApplication::translate("MainWindow", "\346\211\223\345\274\200\346\234\200\350\277\221\346\226\207\344\273\266", nullptr));
+#endif // QT_CONFIG(tooltip)
+        actionClearHistory->setText(QCoreApplication::translate("MainWindow", "\346\270\205\351\231\244\345\216\206\345\217\262\350\256\260\345\275\225", nullptr));
+#if QT_CONFIG(tooltip)
+        actionClearHistory->setToolTip(QCoreApplication::translate("MainWindow", "\346\270\205\351\231\244\345\216\206\345\217\262\350\256\260\345\275\225", nullptr));
+#endif // QT_CONFIG(tooltip)
         menu_F->setTitle(QCoreApplication::translate("MainWindow", "\346\226\207\344\273\266(&F)", nullptr));
         menu_E->setTitle(QCoreApplication::translate("MainWindow", "\347\274\226\350\276\221(&E)", nullptr));
         menu_O->setTitle(QCoreApplication::translate("MainWindow", "\346\240\274\345\274\217(&O)", nullptr));
@@ -494,6 +515,7 @@ public:
         menu_H->setTitle(QCoreApplication::translate("MainWindow", "\345\270\256\345\212\251(&H)", nullptr));
         menuBookmarks->setTitle(QCoreApplication::translate("MainWindow", "\344\271\246\347\255\276(&B)", nullptr));
         menu_p->setTitle(QCoreApplication::translate("MainWindow", "\346\224\266\350\227\217(p)", nullptr));
+        menu_l->setTitle(QCoreApplication::translate("MainWindow", "\345\216\206\345\217\262\350\256\260\345\275\225(l)", nullptr));
         toolBar->setWindowTitle(QCoreApplication::translate("MainWindow", "toolBar", nullptr));
     } // retranslateUi
 

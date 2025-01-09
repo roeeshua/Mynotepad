@@ -103,6 +103,12 @@
     <addaction name="actionOpenFavorite"/>
     <addaction name="actionViewFavorites"/>
    </widget>
+   <widget class="QMenu" name="menu_l">
+    <property name="title">
+     <string>历史记录(l)</string>
+    </property>
+    <addaction name="actionClearHistory"/>
+   </widget>
    <addaction name="menu_F"/>
    <addaction name="menu_E"/>
    <addaction name="menu_O"/>
@@ -110,6 +116,7 @@
    <addaction name="menu_H"/>
    <addaction name="menuBookmarks"/>
    <addaction name="menu_p"/>
+   <addaction name="menu_l"/>
   </widget>
   <widget class="QToolBar" name="toolBar">
    <property name="windowTitle">
@@ -580,6 +587,28 @@
    </property>
    <property name="toolTip">
     <string>查看收藏</string>
+   </property>
+   <property name="menuRole">
+    <enum>QAction::MenuRole::NoRole</enum>
+   </property>
+  </action>
+  <action name="recentFileAction">
+   <property name="text">
+    <string>打开最近文件</string>
+   </property>
+   <property name="toolTip">
+    <string>打开最近文件</string>
+   </property>
+   <property name="menuRole">
+    <enum>QAction::MenuRole::NoRole</enum>
+   </property>
+  </action>
+  <action name="actionClearHistory">
+   <property name="text">
+    <string>清除历史记录</string>
+   </property>
+   <property name="toolTip">
+    <string>清除历史记录</string>
    </property>
    <property name="menuRole">
     <enum>QAction::MenuRole::NoRole</enum>

@@ -85,12 +85,23 @@ private slots:
     void on_actionOpenFavorite_triggered();
     void on_actionViewFavorites_triggered();
 
+    //void on_actionOpen_triggered();
+    void on_actionClearHistory_triggered();
+    void on_recentFileAction_triggered();
+
 private:
 
     QSettings settings;
     QMap<QString, QString> favorites; // 用于临时存储收藏夹
     void loadFavorites(); // 加载收藏夹
     void saveFavorites(); // 保存收藏夹
+
+    QStringList recentFiles; // 用于存储最近打开的文件
+    const int maxRecentFiles = 10; // 最多保存10个历史文件
+    void loadRecentFiles(); // 加载最近文件
+    void saveRecentFiles(); // 保存最近文件
+    void updateRecentFileActions(); // 更新最近文件菜单项
+    void addRecentFile(const QString &file); // 添加文件到最近文件列表
 
     Ui::MainWindow *ui;
     QTabWidget *tabWidget; // 多标签页容器

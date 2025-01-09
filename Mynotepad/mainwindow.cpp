@@ -74,13 +74,96 @@ MainWindow::MainWindow(QWidget *parent)
     }
 
     loadFavorites(); // 加载收藏夹
-    qDebug() << "Favorites loaded:" << favorites;
+    loadRecentFiles(); // 加载最近文件
+    updateRecentFileActions(); // 更新最近文件菜单项
 }
 
 MainWindow::~MainWindow()
 {
     saveFavorites(); // 保存收藏夹
+    saveRecentFiles(); // 保存最近文件
     delete ui;
+}
+
+
+void MainWindow::loadRecentFiles()
+{
+    settings.beginGroup("RecentFiles");
+    recentFiles = settings.value("files").toStringList();
+    settings.endGroup();
+}
+
+void MainWindow::saveRecentFiles()
+{
+    settings.beginGroup("RecentFiles");
+    settings.setValue("files", recentFiles);
+    settings.endGroup();
+    settings.sync(); // 确保设置被写入磁盘
+}
+
+void MainWindow::addRecentFile(const QString &file)
+{
+    if (recentFiles.contains(file)) {
+        recentFiles.removeOne(file);
+    }
+    recentFiles.prepend(file);
+    while (recentFiles.size() > maxRecentFiles) {
+        recentFiles.removeLast();
+    }
+    saveRecentFiles();
+    updateRecentFileActions();
+}
+
+void MainWindow::updateRecentFileActions()
+{
+    QMenu *recentMenu = ui->menu_l->findChild<QMenu *>("recentFileMenu");
+    if (!recentMenu) {
+        recentMenu = new QMenu("最近文件", ui->menu_l);
+        recentMenu->setObjectName("recentFileMenu"); // 设置对象名称以便查找
+        ui->menu_l->addMenu(recentMenu);
+    } else {
+        recentMenu->clear(); // 清除现有菜单项
+    }
+
+    for (const QString &file : recentFiles) {
+        QAction *action = recentMenu->addAction(QFileInfo(file).fileName());
+        action->setData(file);
+        connect(action, &QAction::triggered, this, &MainWindow::on_recentFileAction_triggered);
+    }
+
+    if (recentFiles.isEmpty()) {
+        QAction *action = recentMenu->addAction("无最近文件");
+        action->setEnabled(false);
+    }
+}
+
+void MainWindow::on_actionClearHistory_triggered()
+{
+    recentFiles.clear();
+    saveRecentFiles();
+    updateRecentFileActions();
+}
+
+void MainWindow::on_recentFileAction_triggered()
+{
+    QAction *action = qobject_cast<QAction *>(sender());
+    if (action) {
+        QString filename = action->data().toString();
+        QFile file(filename);
+        if (!file.open(QIODevice::ReadOnly | QIODevice::Text)) {
+            QMessageBox::warning(this, "错误", "无法打开文件");
+            return;
+        }
+
+        QString fileType = QFileInfo(filename).suffix().toLower(); // 获取文件扩展名
+        CodeEditor *editor = new CodeEditor(this, fileType); // 根据文件类型创建编辑器
+        editor->setPlainText(file.readAll());
+        tabWidget->addTab(editor, QFileInfo(filename).fileName());
+        tabWidget->setCurrentWidget(editor);
+        file.close();
+
+        addRecentFile(filename); // 确保文件在最近文件列表的顶部
+    }
 }
 
 void MainWindow::loadFavorites()
@@ -99,8 +182,9 @@ void MainWindow::saveFavorites()
     settings.remove(""); // 清除所有旧的收藏夹
     for (const QString &key : favorites.keys()) {
         settings.setValue(key, favorites[key]);
-        settings.sync();
     }
+    settings.endGroup();
+    settings.sync(); // 确保设置被写入磁盘
     qDebug() << "Favorites saved:" << favorites;
 }
 
@@ -362,6 +446,8 @@ void MainWindow::on_actionOpen_triggered()
     int index = tabWidget->addTab(editor, QFileInfo(filename).fileName());
     tabWidget->setCurrentIndex(index);
     file.close();
+
+    addRecentFile(filename); // 添加文件到最近文件列表
 }
 
 
