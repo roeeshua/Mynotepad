@@ -1,6 +1,7 @@
 #ifndef MAINWINDOW_H
 #define MAINWINDOW_H
 
+#include <QSettings>
 #include <QMainWindow>
 #include <QLabel>
 #include "codeeditor.h"
@@ -79,7 +80,18 @@ private slots:
     void on_actionViewBookmarks_triggered();
     void on_actionGotoBookmark_triggered();
 
+    void on_actionAddFavorite_triggered();
+    void on_actionRemoveFavorite_triggered();
+    void on_actionOpenFavorite_triggered();
+    void on_actionViewFavorites_triggered();
+
 private:
+
+    QSettings settings;
+    QMap<QString, QString> favorites; // 用于临时存储收藏夹
+    void loadFavorites(); // 加载收藏夹
+    void saveFavorites(); // 保存收藏夹
+
     Ui::MainWindow *ui;
     QTabWidget *tabWidget; // 多标签页容器
     QString filePath;

@@ -94,12 +94,22 @@
     <addaction name="actionViewBookmarks"/>
     <addaction name="actionGotoBookmark"/>
    </widget>
+   <widget class="QMenu" name="menu_p">
+    <property name="title">
+     <string>收藏(p)</string>
+    </property>
+    <addaction name="actionAddFavorite"/>
+    <addaction name="actionRemoveFavorite"/>
+    <addaction name="actionOpenFavorite"/>
+    <addaction name="actionViewFavorites"/>
+   </widget>
    <addaction name="menu_F"/>
    <addaction name="menu_E"/>
    <addaction name="menu_O"/>
    <addaction name="menu_V"/>
    <addaction name="menu_H"/>
    <addaction name="menuBookmarks"/>
+   <addaction name="menu_p"/>
   </widget>
   <widget class="QToolBar" name="toolBar">
    <property name="windowTitle">
@@ -526,6 +536,50 @@
    </property>
    <property name="toolTip">
     <string>跳转到指定书签</string>
+   </property>
+   <property name="menuRole">
+    <enum>QAction::MenuRole::NoRole</enum>
+   </property>
+  </action>
+  <action name="actionAddFavorite">
+   <property name="text">
+    <string>添加收藏</string>
+   </property>
+   <property name="toolTip">
+    <string>添加收藏</string>
+   </property>
+   <property name="menuRole">
+    <enum>QAction::MenuRole::NoRole</enum>
+   </property>
+  </action>
+  <action name="actionRemoveFavorite">
+   <property name="text">
+    <string>移除收藏</string>
+   </property>
+   <property name="toolTip">
+    <string>移除收藏</string>
+   </property>
+   <property name="menuRole">
+    <enum>QAction::MenuRole::NoRole</enum>
+   </property>
+  </action>
+  <action name="actionOpenFavorite">
+   <property name="text">
+    <string>打开收藏</string>
+   </property>
+   <property name="toolTip">
+    <string>打开收藏</string>
+   </property>
+   <property name="menuRole">
+    <enum>QAction::MenuRole::NoRole</enum>
+   </property>
+  </action>
+  <action name="actionViewFavorites">
+   <property name="text">
+    <string>查看收藏</string>
+   </property>
+   <property name="toolTip">
+    <string>查看收藏</string>
    </property>
    <property name="menuRole">
     <enum>QAction::MenuRole::NoRole</enum>

@@ -14,6 +14,7 @@
 #include <QUrl>
 #include <QInputDialog>
 #include "bookmarkdialog.h"
+#include <QSettings>
 
 MainWindow::MainWindow(QWidget *parent)
     : QMainWindow(parent)
@@ -71,11 +72,105 @@ MainWindow::MainWindow(QWidget *parent)
         connect(editor, &CodeEditor::hyperlinkActivated, this, &MainWindow::on_hyperlinkActivated);
         qDebug() << "Connected hyperlinkActivated signal to slot";
     }
+
+    loadFavorites(); // 加载收藏夹
+    qDebug() << "Favorites loaded:" << favorites;
 }
 
 MainWindow::~MainWindow()
 {
+    saveFavorites(); // 保存收藏夹
     delete ui;
+}
+
+void MainWindow::loadFavorites()
+{
+    settings.beginGroup("Favorites");
+    QStringList keys = settings.childKeys();
+    for (const QString &key : keys) {
+        favorites[key] = settings.value(key).toString();
+    }
+    settings.endGroup();
+}
+
+void MainWindow::saveFavorites()
+{
+    settings.beginGroup("Favorites");
+    settings.remove(""); // 清除所有旧的收藏夹
+    for (const QString &key : favorites.keys()) {
+        settings.setValue(key, favorites[key]);
+        settings.sync();
+    }
+    qDebug() << "Favorites saved:" << favorites;
+}
+
+void MainWindow::on_actionAddFavorite_triggered()
+{
+    QString path = QFileDialog::getOpenFileName(this, "选择文件", "", "All Files (*)");
+    if (!path.isEmpty()) {
+        QFileInfo fileInfo(path);
+        QString fileName = fileInfo.fileName();
+        favorites[fileName] = path;
+        saveFavorites();
+        QMessageBox::information(this, "收藏夹", "文件已添加到收藏夹！");
+    }
+}
+
+void MainWindow::on_actionRemoveFavorite_triggered()
+{
+    if (favorites.isEmpty()) {
+        QMessageBox::information(this, "收藏夹", "收藏夹为空！");
+        return;
+    }
+
+    QStringList favoriteNames = favorites.keys();
+    bool ok;
+    QString selectedFile = QInputDialog::getItem(this, "删除收藏夹", "选择要删除的文件", favoriteNames, 0, false, &ok);
+    if (ok && !selectedFile.isEmpty()) {
+        favorites.remove(selectedFile);
+        saveFavorites();
+        QMessageBox::information(this, "收藏夹", "文件已从收藏夹中删除！");
+    }
+}
+
+void MainWindow::on_actionOpenFavorite_triggered()
+{
+    if (favorites.isEmpty()) {
+        QMessageBox::information(this, "收藏夹", "收藏夹为空！");
+        return;
+    }
+
+    QStringList favoriteNames = favorites.keys();
+    bool ok;
+    QString selectedFile = QInputDialog::getItem(this, "打开收藏夹", "选择要打开的文件", favoriteNames, 0, false, &ok);
+    if (ok && !selectedFile.isEmpty()) {
+        QString path = favorites[selectedFile];
+        QFile file(path);
+        if (file.open(QIODevice::ReadOnly | QIODevice::Text)) {
+            CodeEditor *editor = new CodeEditor(this);
+            editor->setPlainText(file.readAll());
+            tabWidget->addTab(editor, selectedFile);
+            tabWidget->setCurrentWidget(editor);
+            file.close();
+        } else {
+            QMessageBox::warning(this, "错误", "无法打开文件！");
+        }
+    }
+}
+
+void MainWindow::on_actionViewFavorites_triggered()
+{
+    if (favorites.isEmpty()) {
+        QMessageBox::information(this, "收藏夹", "收藏夹为空！");
+        return;
+    }
+
+    QStringList favoriteList;
+    for (const QString &key : favorites.keys()) {
+        favoriteList.append(key + ": " + favorites[key]);
+    }
+    QString list = favoriteList.join("\n");
+    QMessageBox::information(this, "收藏夹列表", list);
 }
 
 void MainWindow::on_actionAddBookmark_triggered()
@@ -150,11 +245,9 @@ void MainWindow::switchTheme(){
     if (isDarkTheme) {
         file.setFileName("F:/QT/Mynotepad/style/light.qss");
         isDarkTheme = false;
-        QMessageBox::warning(this, "切换模式", "已切换为浅色模式");
     } else {
         file.setFileName("F:/QT/Mynotepad/style/dark.qss");
         isDarkTheme = true;
-        QMessageBox::warning(this, "切换模式", "已切换为深色模式");
     }
 
     if (!file.open(QFile::ReadOnly | QFile::Text)) {
